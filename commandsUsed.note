@@ -34,3 +34,7 @@ $dotnet ef
 $dotnet ef migrations add InitialCreate -p Persistence -s API  
 
 $dotnet ef migrations add SeedValues -p Persistance -s API
+
+
+//Client side
+$ npx create-react-app client-app --use-npm --typescript
