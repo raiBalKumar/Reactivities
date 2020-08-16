@@ -1,0 +1,36 @@
+$dotnet new sln
+$dotnet new classlib -n Domain
+$dotnet new classlib -n Application
+$dotnet new classlib -n Persistance
+$dotnet new webapi -n API
+
+$dotnet sln add Domain
+$dotnet sln add Application
+$dotnet sln add Persistance
+$dotnet sln add API
+
+$dotnet sln list
+
+//Application depends on Domain and Persistance
+$cd Application
+$dotnet add reference ../Domain/
+$dotnet add reference ../Persistance/
+
+//Api depends on Application
+$cd API
+$dotnet add reference ../Application/
+
+//Persistance depends on Domain
+$cd Persistance
+$dotnet add reference ../Domain/
+
+$dotnet run -p API
+
+
+$dotnet tool install --global dotnet-ef
+$dotnet ef
+
+//Need Microsoft.EntityFrameworkCore.Design.  cmd + shift + p to open shell
+$dotnet ef migrations add InitialCreate -p Persistence -s API  
+
+$dotnet ef migrations add SeedValues -p Persistance -s API
